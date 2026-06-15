@@ -1,0 +1,88 @@
+.footer {
+  background: var(--primary-dark);
+  color: rgba(255,255,255,.72);
+  padding: 5rem 0 2rem;
+  margin-top: 6rem;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+@media (max-width: 1024px) {
+  .footer__top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .footer__top { grid-template-columns: 1fr; }
+}
+
+.footer__logo {
+  display: flex; align-items: center; gap: .5rem;
+  font-family: var(--font-display); font-size: 1.125rem;
+  font-weight: 800; color: #fff; margin-bottom: 1rem;
+}
+.footer__logo span { color: var(--orange); }
+.footer__logo-icon {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,.1);
+  border-radius: var(--radius);
+  display: flex; align-items: center;
+  justify-content: center; color: #fff;
+}
+
+.footer__tagline {
+  font-size: .875rem; line-height: 1.75;
+  color: rgba(255,255,255,.55); max-width: 28ch;
+}
+.footer__contact {
+  display: flex; flex-direction: column;
+  gap: .5rem; margin-top: 1.25rem;
+  font-size: .825rem; color: rgba(255,255,255,.5);
+}
+.footer__contact span {
+  display: flex; align-items: center; gap: .5rem;
+}
+
+.footer__socials {
+  display: flex; gap: .625rem; margin-top: 1.5rem;
+}
+.footer__social {
+  width: 34px; height: 34px; border-radius: var(--radius);
+  background: rgba(255,255,255,.07);
+  display: flex; align-items: center;
+  justify-content: center; color: rgba(255,255,255,.65);
+  transition: background .2s, color .2s;
+}
+.footer__social:hover { background: var(--teal); color: #fff; }
+
+.footer__col-heading {
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 1.25rem;
+}
+.footer__col-links {
+  display: flex; flex-direction: column; gap: .75rem;
+}
+.footer__col-link {
+  font-size: .875rem; color: rgba(255,255,255,.6);
+  transition: color .2s;
+}
+.footer__col-link:hover { color: #fff; }
+
+.footer__bottom {
+  display: flex; justify-content: space-between;
+  align-items: center; padding-top: 2rem;
+  font-size: .775rem; color: rgba(255,255,255,.3);
+  flex-wrap: wrap; gap: .5rem;
+}
+
+.footer__logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}

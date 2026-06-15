@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+health-insurance/frontend/node_modules/
+health-insurance/backend/node_modules/
+
+# Build outputs
+dist/
+health-insurance/frontend/dist/
+
+# Environment variables
+.env
+health-insurance/frontend/.env
+health-insurance/backend/.env
+
+# Misc
+.DS_Store
+*.local

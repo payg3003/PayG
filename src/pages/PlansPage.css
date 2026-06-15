@@ -1,0 +1,183 @@
+/* ── Hero ── */
+.plans-hero {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--teal-dark) 100%);
+  padding: 8rem 0 6rem;
+  text-align: center;
+  overflow: hidden;
+}
+.plans-hero__blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.plans-hero__blob  { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .13; }
+.plans-hero__blob--1 { width: 500px; height: 500px; background: var(--orange); top: -150px; right: -80px; }
+.plans-hero__blob--2 { width: 400px; height: 400px; background: var(--primary-light); bottom: -100px; left: -60px; }
+.plans-hero__inner   { position: relative; z-index: 1; }
+.plans-hero__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800; color: #fff;
+  letter-spacing: -.03em;
+  margin-bottom: 1rem; text-wrap: balance;
+}
+.plans-hero__sub {
+  font-size: 1.0625rem;
+  color: rgba(255,255,255,.7);
+  max-width: 50ch;
+  margin: 0 auto; line-height: 1.75;
+}
+.plans-hero__wave { position: absolute; bottom: 0; left: 0; right: 0; line-height: 0; z-index: 2; }
+.plans-hero__wave svg { width: 100%; height: 80px; }
+
+/* ── Flow ── */
+.plans-flow { padding-top: 4rem; }
+.plans-flow__inner { max-width: 860px; display: flex; flex-direction: column; gap: 3.5rem; }
+.plans-step__label {
+  font-size: .78rem; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 1.25rem;
+}
+
+/* ── Type cards ── */
+.plans-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.plans-type-card {
+  position: relative;
+  padding: 2rem; border-radius: var(--radius-xl);
+  border: 2px solid var(--border);
+  background: var(--surface);
+  cursor: pointer; text-align: left;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.plans-type-card:hover { box-shadow: var(--shadow-md); }
+.plans-type-card--active {
+  border-color: var(--primary);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 4px rgba(30,58,138,.1);
+}
+.plans-type-card__title { font-weight: 700; font-size: 1.0625rem; margin-bottom: .4rem; }
+.plans-type-card__desc  { font-size: .875rem; color: var(--text-muted); line-height: 1.6; }
+.plans-type-card__check {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Insurer cards ── */
+.plans-insurer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.plans-insurer-card {
+  position: relative;
+  padding: 1.75rem 1.5rem; border-radius: var(--radius-lg);
+  border: 2px solid var(--border); background: var(--surface);
+  cursor: pointer; text-align: center;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.plans-insurer-card:hover { box-shadow: var(--shadow-md); }
+.plans-insurer-card--active {
+  border-color: var(--primary); background: var(--surface-2);
+  box-shadow: 0 0 0 4px rgba(30,58,138,.1);
+}
+.plans-insurer-card__logo {
+  width: 52px; height: 52px; border-radius: var(--radius-md);
+  background: var(--surface-2); color: var(--primary);
+  font-family: var(--font-display); font-weight: 800; font-size: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto .875rem;
+}
+.plans-insurer-card__name { font-weight: 700; font-size: .9375rem; }
+.plans-insurer-card__tag  { font-size: .8rem; color: var(--text-muted); margin-top: .2rem; }
+.plans-insurer-card__check {
+  position: absolute; top: .75rem; right: .75rem;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Plan list ── */
+.plans-plan-list { display: flex; flex-direction: column; gap: 1rem; }
+.plans-plan-card {
+  position: relative;
+  padding: 1.75rem; border-radius: var(--radius-lg);
+  border: 2px solid var(--border); background: var(--surface);
+  cursor: pointer; text-align: left;
+  transition: border-color .2s, background .2s, box-shadow .2s, transform .2s;
+}
+.plans-plan-card:hover { box-shadow: var(--shadow-md); }
+.plans-plan-card--active {
+  border-color: var(--primary); background: var(--surface-2);
+  box-shadow: 0 0 0 4px rgba(30,58,138,.1);
+}
+.plans-plan-card__top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 1rem;
+}
+.plans-plan-card__name { font-weight: 700; font-size: 1rem; }
+.plans-plan-card__via  { font-size: .8rem; color: var(--text-muted); margin-top: .2rem; }
+.plans-plan-card__price {
+  font-family: var(--font-display);
+  font-size: 1.25rem; font-weight: 800; color: var(--primary);
+  white-space: nowrap;
+}
+.plans-plan-card__badges { display: flex; gap: .5rem; flex-wrap: wrap; }
+.plans-plan-card__check {
+  position: absolute; top: 1rem; right: 4rem;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Payment grid ── */
+.plans-payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 1rem; margin-bottom: 1.5rem;
+}
+.plans-payment-card {
+  padding: 1.5rem; border-radius: var(--radius-lg);
+  border: 2px solid var(--border); background: var(--surface);
+  cursor: pointer; text-align: left;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.plans-payment-card:hover { box-shadow: var(--shadow-md); }
+.plans-payment-card--active {
+  border-color: var(--teal);
+  background: rgba(15,118,110,.04);
+  box-shadow: 0 0 0 4px rgba(15,118,110,.1);
+}
+.plans-payment-card__label { font-weight: 600; font-size: .9375rem; margin-bottom: .35rem; }
+.plans-payment-card__desc  { font-size: .8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ── Info banner ── */
+.plans-info-banner {
+  background: var(--warning-bg);
+  border: 1px solid var(--orange-light);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  font-size: .875rem; color: var(--orange);
+  margin-bottom: 1.5rem; line-height: 1.6;
+}
+
+/* ── Continue ── */
+.plans-continue { width: 100%; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .plans-insurer-grid { grid-template-columns: 1fr; }
+  .plans-type-grid    { grid-template-columns: 1fr; }
+}
+
+.plans-type-card__external {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .72rem;
+  color: var(--teal);
+  margin-top: .75rem;
+  font-weight: 500;
+}
