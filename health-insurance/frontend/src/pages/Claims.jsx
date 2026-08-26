@@ -108,14 +108,15 @@ export default function Claims() {
     setErrors(e); return Object.keys(e).length === 0
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validate()) return
     setSubmitting(true)
-    setTimeout(() => {
-      submitClaim({ type: form.type, description: form.description, amount: parseInt(form.amount) })
-      setSubmitting(false); setSubmitted(true)
+    try {
+      await submitClaim({ type: form.type, description: form.description, amount: parseInt(form.amount) })
+      setSubmitted(true)
       setTimeout(() => { setShowForm(false); setSubmitted(false); setForm({ type: '', description: '', amount: '' }) }, 1500)
-    }, 1100)
+    } catch (err) { setErrors({ form: err.message || 'Unable to submit claim' }) }
+    finally { setSubmitting(false) }
   }
 
   return (

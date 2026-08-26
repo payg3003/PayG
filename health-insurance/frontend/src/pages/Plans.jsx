@@ -70,12 +70,9 @@ export default function Plans() {
       return
     }
     setSaving(true)
-    setTimeout(() => {
-      changePlan(selected)
-      setSaving(false)
-      setSaved(true)
-      setTimeout(() => navigate('/dashboard'), 1000)
-    }, 1200)
+    changePlan(selectedPlan.id).then(() => {
+      setSaving(false); setSaved(true); setTimeout(() => navigate('/dashboard'), 1000)
+    }).catch(() => setSaving(false))
   }
 
   return (

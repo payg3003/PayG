@@ -94,14 +94,19 @@ export default function Onboarding() {
     setErrors(e); return Object.keys(e).length === 0
   }
 
-  const next = () => {
+  const next = async () => {
     if (step === 1 && !validatePersonal()) return
     if (step === 2 && !validateKin()) return
     if (step === STEPS.length - 1) {
       const prices = { Basic: 500, Standard: 1000, Premium: 2000 }
-      changePlan(form.plan === 'Basic' ? 1 : form.plan === 'Standard' ? 2 : 3, form.plan, prices[form.plan])
-      login({ ...form })
-      navigate('/dashboard')
+      try {
+        const profile = await import('../utils/api.js').then(({ api }) => api.auth.updateProfile({
+          firstName: form.firstName, lastName: form.lastName, dateOfBirth: form.dob, gender: form.gender,
+          kinName: form.kinName, kinPhone: form.kinPhone, kinRelation: form.kinRelation,
+        }))
+        await changePlan(form.plan === 'Basic' ? 1 : form.plan === 'Standard' ? 2 : 3)
+        login(profile.user); navigate('/dashboard')
+      } catch (err) { setErrors({ form: err.message || 'Unable to complete onboarding' }) }
       return
     }
     setErrors({})

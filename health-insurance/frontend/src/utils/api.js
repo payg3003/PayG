@@ -26,6 +26,7 @@ export const api = {
     sendOtp: (phone) => request('POST', '/auth/send-otp', { phone }),           // POST /api/auth/send-otp
     verifyOtp: (phone, otp) => request('POST', '/auth/verify-otp', { phone, otp }), // POST /api/auth/verify-otp → { token, user, isNew }
     updateProfile: (data) => request('PUT', '/auth/profile', data),             // PUT /api/auth/profile
+    me: () => request('GET', '/auth/me'),
   },
   subscription: {
     get: () => request('GET', '/subscription'),                                  // GET /api/subscription
@@ -44,6 +45,11 @@ export const api = {
   notifications: {
     list: () => request('GET', '/notifications'),                                 // GET /api/notifications
     markRead: (id) => request('PUT', `/notifications/${id}/read`),               // PUT /api/notifications/:id/read
+    markAllRead: () => request('PUT', '/notifications/read-all'),
+  },
+  airtime: {
+    getSettings: () => request('GET', '/airtime/settings'),
+    saveSettings: (data) => request('POST', '/airtime/settings', data),
   },
 }
 

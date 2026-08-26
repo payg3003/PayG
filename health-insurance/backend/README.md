@@ -87,7 +87,7 @@ curl http://localhost:5000/health
 
 ## Deploy to Render (Free)
 
-1. Push the `health-insurance/backend` folder to a GitHub repo
+1. Push this folder to a GitHub repo
 2. Go to **render.com** → New → Web Service
 3. Connect your repo
 4. Set:
@@ -97,7 +97,7 @@ curl http://localhost:5000/health
 5. Add all environment variables from `.env.example`
 6. Click **Deploy**
 
-Your API will be live at: `https://payg-health-insurance-backend.onrender.com`
+Your API will be live at: `https://payg-backend.onrender.com`
 
 ---
 
@@ -105,7 +105,7 @@ Your API will be live at: `https://payg-health-insurance-backend.onrender.com`
 
 In your frontend `.env`:
 ```
-VITE_API_BASE_URL=https://payg-health-insurance-backend.onrender.com/api
+VITE_API_BASE_URL=https://payg-backend.onrender.com/api
 ```
 
 Then uncomment all `api.*` calls in your React pages — they're already written in `src/utils/api.js`.

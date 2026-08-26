@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema(
     isVerified:   { type: Boolean, default: false },
     isOnboarded:  { type: Boolean, default: false },
     isActive:     { type: Boolean, default: true },
+    role:         { type: String, enum: ['user', 'admin'], default: 'user' },
 
     // Paystack customer code (stored after first payment)
     paystackCustomerCode: { type: String },

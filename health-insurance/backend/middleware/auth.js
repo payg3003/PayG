@@ -39,4 +39,11 @@ const signToken = (userId) =>
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
   })
 
-module.exports = { protect, signToken }
+const requireAdmin = (req, res, next) => {
+  if (req.user?.role !== 'admin') {
+    return res.status(403).json({ success: false, message: 'Administrator access is required' })
+  }
+  next()
+}
+
+module.exports = { protect, requireAdmin, signToken }

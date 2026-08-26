@@ -47,6 +47,13 @@ const subscriptionSchema = new mongoose.Schema(
     // Cancellation
     cancelledAt:     { type: Date },
     cancellationNote: { type: String },
+
+    airtimeDeduction: {
+      enabled: { type: Boolean, default: false },
+      percentage: { type: Number, default: 10 },
+      network: { type: String, default: null },
+      updatedAt: { type: Date },
+    },
   },
   {
     timestamps: true,

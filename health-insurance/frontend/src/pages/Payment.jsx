@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../context/AppContext.jsx'
 import { usePaystack } from '../hooks/usePaystack.js'
+import { api } from '../utils/api.js'
 import AppLayout from '../components/AppLayout.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 
@@ -47,36 +48,42 @@ export default function Payment() {
   const monthsToFull     = airPct ? Math.ceil(subscription.planPrice / estimatedMonthly) : null
 
   // ── Manual payment ────────────────────────────────────────────────────────
-  const handlePay = () => {
+  const handlePay = async () => {
     const amt = parseInt(amount)
     if (!amt || amt < 100) { setError('Minimum payment is ₦100'); return }
     setError('')
     setStage('processing')
-    openPaystack({
+    try {
+      if (method !== 'paystack') throw new Error('Flutterwave is not configured yet. Please use Paystack.')
+      const initialized = await api.payments.initialize(amt)
+      openPaystack({
       email: user?.email || 'user@payg.ng',
       amount: amt,
-      reference: `PAYG_${Date.now()}`,
-      onSuccess: (response) => {
-        addPayment(amt, response.reference)
+      reference: initialized.reference,
+      onSuccess: async (response) => {
+        try {
+          await addPayment(response.reference)
         setPaidRef(response.reference)
         setStage('success')
+        } catch (err) { setStage('form'); setError(err.message || 'Payment verification failed') }
       },
       onClose: () => { setStage('form'); setError('Payment was cancelled. Try again.') },
-    })
+      })
+    } catch (err) { setStage('form'); setError(err.message || 'Unable to start payment') }
   }
 
   // ── Save airtime settings ─────────────────────────────────────────────────
-  const handleSaveAirtime = () => {
+  const handleSaveAirtime = async () => {
     if (!airPct) { setAirError('Select a deduction percentage'); return }
     if (!airNetwork) { setAirError('Select your network'); return }
     setAirError('')
-    updateAirtimeSettings({ enabled: true, percentage: airPct, network: airNetwork })
-    setAirSaved(true)
-    setTimeout(() => setAirSaved(false), 3000)
+    try { await updateAirtimeSettings({ enabled: true, percentage: airPct, network: airNetwork }); setAirSaved(true); setTimeout(() => setAirSaved(false), 3000) }
+    catch (err) { setAirError(err.message || 'Unable to save airtime settings') }
   }
 
-  const handleDisableAirtime = () => {
-    updateAirtimeSettings({ enabled: false, percentage: null, network: null })
+  const handleDisableAirtime = async () => {
+    try { await updateAirtimeSettings({ enabled: false, percentage: null, network: null }) }
+    catch (err) { setAirError(err.message || 'Unable to disable airtime settings'); return }
     setAirPct(null)
     setAirNetwork(null)
   }

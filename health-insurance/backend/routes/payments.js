@@ -64,7 +64,7 @@ router.post(
       const { reference } = req.body
 
       // Prevent double-processing
-      const existing = await Transaction.findOne({ paystackReference: reference, status: 'success' })
+      const existing = await Transaction.findOne({ paystackReference: reference, user: req.user._id, status: 'success' })
       if (existing) {
         return res.status(400).json({ success: false, message: 'Payment already verified' })
       }
@@ -84,7 +84,7 @@ router.post(
 
       // Update transaction
       const transaction = await Transaction.findOneAndUpdate(
-        { paystackReference: reference },
+        { paystackReference: reference, user: req.user._id },
         {
           status: 'success',
           paystackStatus: 'success',
@@ -92,8 +92,9 @@ router.post(
           verifiedAt: new Date(),
           amount: amountPaid,
         },
-        { new: true, upsert: true }
+        { new: true }
       )
+      if (!transaction) return res.status(404).json({ success: false, message: 'Payment reference not found' })
 
       // Update wallet
       const sub = await Subscription.findOne({ user: req.user._id })
