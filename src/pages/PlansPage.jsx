@@ -51,7 +51,7 @@ const paymentOptions = [
   { icon: Users,         label: 'Cooperative Contribution', desc: 'Contributions through your registered cooperative.' },
   { icon: Handshake,     label: 'Trade Union Contribution', desc: 'Coverage supported by your trade union.' },
   { icon: CalendarCheck, label: 'Voluntary Contributions',  desc: 'Flexible payments at your preferred intervals.' },
-  { icon: Smartphone,    label: 'Airtime Deduction',        desc: 'Deduct from airtime (MTN, Airtel, Glo, 9mobile).' },
+  { icon: Smartphone,    label: 'Online payment',           desc: 'Fund contributions securely through the available payment provider.' },
 ]
 
 const insuranceTypes = [
