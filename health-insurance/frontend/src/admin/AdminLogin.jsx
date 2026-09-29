@@ -12,19 +12,17 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      const ok = adminLogin(username.trim(), password);
-      if (ok) {
-        navigate("/x/admin", { replace: true });
-      } else {
-        setError("Invalid credentials.");
-        setLoading(false);
-      }
-    }, 600);
+    try {
+      await adminLogin(username, password);
+      navigate("/x/admin", { replace: true });
+    } catch (e) {
+      setError(e.message || "Invalid credentials.");
+      setLoading(false);
+    }
   }
 
   return (

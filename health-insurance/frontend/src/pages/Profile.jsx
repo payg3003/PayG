@@ -252,8 +252,8 @@ const FAQS = [
     a: 'Any registered partner hospital. Show your policy number at the reception. A full directory is coming soon in-app.',
   },
   {
-    q: 'How does airtime deduction work?',
-    a: 'We deduct 10%, 20%, or 50% of every airtime recharge and add it straight to your wallet. No bank card needed.',
+    q: 'Can I fund my wallet with mobile airtime?',
+    a: 'Airtime billing is not currently available. Fund your wallet through the Paystack payment option in the app.',
   },
 ]
 

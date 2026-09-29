@@ -1,10 +1,8 @@
 import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useApp } from '../context/AppContext.jsx'
+import { api } from '../utils/api.js'
 
-const BASE = import.meta.env.VITE_API_BASE_URL
-const hasBackend = () => Boolean(BASE && BASE !== 'https://payg-mvp2-backend.onrender.com' || false)
-const mockOtp = () => String(Math.floor(1000 + Math.random() * 9000))
 
 /* ─── Shared tokens (inline so this file is self-contained) ─────────────── */
 const T = {
@@ -98,19 +96,9 @@ export default function Auth() {
     if (err) { setError(err); return }
     setError(''); setLoading(true)
     try {
-      if (hasBackend()) {
-        const res = await fetch(`${BASE}/auth/send-otp`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(mode === 'phone' ? { phone: value } : { email: value }),
-        })
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.message || 'Failed to send code')
-        if (data.devOtp) setDevCode(data.devOtp); else setDevCode(null)
-      } else {
-        const code = mockOtp()
-        setDevCode(code)
-        await new Promise(r => setTimeout(r, 900))
-      }
+      const contact = mode === 'phone' ? { phone: value } : { email: value }
+      const data = await api.auth.sendOtp(contact)
+      setDevCode(data.devOtp || null)
       setStep('otp'); startCountdown()
     } catch (e) {
       setError(e.message || 'Could not send code. Check your connection.')
@@ -143,27 +131,12 @@ export default function Auth() {
     if (code.length < 4) { setError('Enter the 4-digit code'); return }
     setError(''); setLoading(true)
     try {
-      if (hasBackend()) {
-        const payload = mode === 'phone' ? { phone: value, otp: code } : { email: value, otp: code }
-        const res = await fetch(`${BASE}/auth/verify-otp`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
-        const data = await res.json()
-        if (!res.ok) throw new Error(data.message || 'Verification failed')
-        if (data.token) localStorage.setItem('payg_token', data.token)
-        login({ id: data.user.id, phone: data.user.phone, email: data.user.email,
-          firstName: data.user.firstName, lastName: data.user.lastName, isOnboarded: data.user.isOnboarded })
-        navigate(data.isNew ? '/onboarding' : '/dashboard')
-      } else {
-        if (code !== devCode) throw new Error(`Wrong code. Dev code is ${devCode} — click it to auto-fill.`)
-        await new Promise(r => setTimeout(r, 700))
-        const isNew = !localStorage.getItem('payg_returning')
-        if (isNew) localStorage.setItem('payg_returning', '1')
-        login({ phone: mode === 'phone' ? value : null, email: mode === 'email' ? value : null, firstName: null })
-        navigate(isNew ? '/onboarding' : '/dashboard')
-      }
-    } catch (e) {
+      const contact = mode === 'phone' ? { phone: value } : { email: value }
+      const data = await api.auth.verifyOtp(contact, code)
+      if (data.token) localStorage.setItem('payg_token', data.token)
+      login({ id: data.user.id, phone: data.user.phone, email: data.user.email,
+        firstName: data.user.firstName, lastName: data.user.lastName, isOnboarded: data.user.isOnboarded })
+      navigate(data.isNew ? '/onboarding' : '/dashboard')    } catch (e) {
       setError(e.message || 'Verification failed. Try again.')
     } finally { setLoading(false) }
   }
@@ -221,10 +194,11 @@ export default function Auth() {
               display: 'flex', background: T.s2, border: `1px solid ${T.border}`,
               borderRadius: 13, padding: 4, marginBottom: 24,
             }}>
-              {[['phone', 'smartphone', 'Phone'], ['email', 'mail', 'Email']].map(([m, ic, lb]) => (
+              {[['phone', 'smartphone', 'Phone'], ['email', 'mail', 'Email unavailable']].map(([m, ic, lb]) => (
                 <button key={m}
+                  disabled={m === 'email'}
                   onClick={() => { setMode(m); setValue(''); setError('') }}
-                  className={`auth-tab ${mode === m ? 'active' : 'inactive'}`}>
+                  className={`auth-tab ${mode === m ? 'active' : 'inactive'} ${m === 'email' ? 'opacity-50 cursor-not-allowed' : ''}`}>
                   <span className="icon-o" style={{ fontSize: 16 }}>{ic}</span> {lb}
                 </button>
               ))}

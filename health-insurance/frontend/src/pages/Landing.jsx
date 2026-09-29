@@ -146,7 +146,7 @@ export default function Landing() {
                 color: 'var(--ink-muted)', fontSize: 18, lineHeight: 1.6,
                 marginBottom: 28, maxWidth: 440,
               }}>
-                Buy health, auto, home, travel, and more — using the airtime already on your phone. No bank account needed.
+                Build your insurance wallet with secure online payments and manage your cover in one place.
               </motion.p>
 
               <motion.div variants={fadeUp} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 32 }}>
@@ -196,7 +196,7 @@ export default function Landing() {
               }}>
                 <span style={{ fontSize: 28 }}>📱</span>
                 <div>
-                  <p style={{ fontSize: 11, color: 'var(--ink-muted)', marginBottom: 2 }}>Paid with airtime</p>
+                  <p style={{ fontSize: 11, color: 'var(--ink-muted)', marginBottom: 2 }}>Wallet funding</p>
                   <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>MTN · Airtel · Glo · 9mobile</p>
                 </div>
               </div>
@@ -218,7 +218,7 @@ export default function Landing() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 24, textAlign: 'left' }}>
               {[
                 { title: 'Choose Your Coverage', desc: 'Pick from health, auto, home, travel, life insurance, and more — all in one place.' },
-                { title: 'Pay with Airtime',      desc: 'Deduct your premium directly from your airtime balance. Works on all major Nigerian networks.' },
+                { title: 'Fund your wallet',      desc: 'Add funds securely to your insurance wallet and track every payment.' },
                 { title: 'Stay Protected',         desc: 'Your policy activates instantly. File claims, track coverage, and renew — all from your phone.' },
               ].map((item, i) => (
                 <motion.div key={i} variants={fadeUp} style={{
@@ -284,7 +284,7 @@ export default function Landing() {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}
             style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 20 }}>
             {[
-              { img: secureImg,  title: 'Secure Transactions', desc: 'Every airtime payment is encrypted and verified before your policy is issued.' },
+              { img: secureImg,  title: 'Secure Transactions', desc: 'Payments are verified by our payment provider before your wallet is credited.' },
               { img: trustedImg, title: 'Licensed Providers',  desc: 'All insurance plans are from NAICOM-licensed Nigerian insurers you can trust.' },
               { img: mobileImg,  title: '100% Mobile',         desc: 'Buy, manage, and claim your insurance entirely from your phone — anytime, anywhere.' },
             ].map((item, i) => (
@@ -336,7 +336,7 @@ export default function Landing() {
             }}>
               Protected in minutes.<br />
               <span style={{ background: 'linear-gradient(90deg,var(--t4),var(--t6))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                Paid with airtime.
+              Funded securely.
               </span>
             </h2>
             <p style={{ color: 'var(--ink-muted)', fontSize: 17, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px' }}>
@@ -358,7 +358,7 @@ export default function Landing() {
           <span style={{ fontWeight: 800, color: 'var(--ink)', fontSize: 14 }}>PAYG</span>
         </div>
         <p style={{ color: 'var(--ink-muted)', fontSize: 13 }}>
-          © {new Date().getFullYear()} PAYG. Pay-as-you-go insurance, powered by airtime.
+          © {new Date().getFullYear()} PAYG. Pay-as-you-go insurance.
         </p>
       </footer>
     </div>

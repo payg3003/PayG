@@ -51,7 +51,7 @@ export default function AdminOverview() {
 
       {error && (
         <div style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "12px", padding: "14px 18px", marginBottom: "20px", color: "#f87171", fontSize: "13px" }}>
-          ⚠️ {error} — check backend is running and ADMIN_SECRET_TOKEN is set.
+          ⚠️ {error} — check the API URL and server admin configuration.
         </div>
       )}
 

@@ -13,7 +13,7 @@ const NAV = [
 ];
 
 export default function AdminLayout() {
-  const { adminLogout } = useAdmin();
+  const { adminLogout, admin } = useAdmin();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -82,7 +82,7 @@ export default function AdminLayout() {
             <span className="material-symbols-rounded" style={{ fontSize: "16px", color: "#fff" }}>admin_panel_settings</span>
           </div>
           <div>
-            <p style={{ margin: 0, color: "#fff", fontSize: "13px", fontWeight: 600 }}>paygcontact1</p>
+            <p style={{ margin: 0, color: "#fff", fontSize: "13px", fontWeight: 600 }}>{admin?.username || "Administrator"}</p>
             <p style={{ margin: 0, color: "#374151", fontSize: "11px" }}>Super Admin</p>
           </div>
         </div>
